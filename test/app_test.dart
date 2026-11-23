@@ -59,7 +59,8 @@ void main() {
     }
 
     await tap('Scan Receipt');
-    await tap('Take Photo');
+    expect(find.text('Scan a receipt 📷'), findsOneWidget);
+    await tap('Type it in instead');
     await tap('Looks good! Next →');
     await tap('Next →');
     await tap('Continue with 2 →');
