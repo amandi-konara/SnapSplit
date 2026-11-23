@@ -105,8 +105,28 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('All assigned!'), findsOneWidget);
     await tap('Continue to summary →');
+    // Summary: totals per person and per category, then save.
     expect(find.text('All split up! 🎉'), findsOneWidget);
+    expect(find.text('2 people sharing'), findsOneWidget);
+    expect(find.text('Rs. 300'), findsOneWidget); // Anuru
+    expect(find.text('Rs. 150'), findsOneWidget); // Kamal
+    expect(find.text('Food'), findsOneWidget);
     await tap('Save receipt ✓');
     expect(find.text('Ready to split something?'), findsOneWidget);
+    expect(find.text('Receipt saved! ✓'), findsOneWidget);
+
+    // It is in the receipts list, ready for History (Track D).
+    final container = ProviderScope.containerOf(
+      tester.element(find.byType(Scaffold).first),
+    );
+    final saved = await container
+        .read(receiptRepositoryProvider)
+        .watchAll()
+        .first;
+    final soup = saved.firstWhere(
+      (r) => r.storeName == 'Pure Foods' && r.id != 'r-pure-foods',
+    );
+    expect(soup.totalsByPerson.values, containsAll([30000, 15000]));
+    expect(soup.items.single.splitMethod.name, 'exact');
   });
 }
