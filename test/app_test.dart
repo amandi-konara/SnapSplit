@@ -75,6 +75,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Rs. 450'), findsOneWidget); // total pill
     await tap('Looks good! Next →');
+
+    // Categories: "Soup" was suggested as Food.
+    expect(find.text('What kind of things? 🏷️'), findsOneWidget);
+    expect(find.text('🍔  Food'), findsOneWidget);
     await tap('Next →');
     await tap('Continue with 2 →');
     await tap('Continue to summary →');
