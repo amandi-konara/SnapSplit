@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:snapsplit/app.dart';
@@ -61,6 +62,18 @@ void main() {
     await tap('Scan Receipt');
     expect(find.text('Scan a receipt 📷'), findsOneWidget);
     await tap('Type it in instead');
+
+    // Review: Next stays disabled until there is a store and a priced item.
+    expect(find.text("Let's add the items ✍️"), findsOneWidget);
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Store name'),
+      'Pure Foods',
+    );
+    await tap('Add item');
+    await tester.enterText(find.widgetWithText(TextField, 'Item name'), 'Soup');
+    await tester.enterText(find.widgetWithText(TextField, '0'), '450');
+    await tester.pumpAndSettle();
+    expect(find.text('Rs. 450'), findsOneWidget); // total pill
     await tap('Looks good! Next →');
     await tap('Next →');
     await tap('Continue with 2 →');
