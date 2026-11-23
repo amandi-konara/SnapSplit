@@ -1,0 +1,290 @@
+<title>SnapSplit Sprint Plan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap">
+<style>
+/* Layout: one readable column; summary first, then tracks (2x2), day-by-day timeline, priorities, rules. Uses the app's own coral/cream/mint palette. */
+:root {
+  --bg: #FFFCF3;
+  --surface: #FFFFFF;
+  --ink: #3A2A25;
+  --muted: #7A6A63;
+  --line: #F1E6DA;
+  --coral: #FF6253;
+  --coral-soft: #FFE6E1;
+  --mint: #A8E6CF;
+  --mint-soft: #E4F7EF;
+  --mint-ink: #1F7A57;
+  --amber-soft: #FFF3D6;
+  --amber-ink: #8A5A00;
+  --font-head: "Nunito", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1E1715; --surface: #2A211E; --ink: #F6EDE6; --muted: #B9A9A0; --line: #3C302B;
+  --coral: #FF7A6C; --coral-soft: #4A2620; --mint: #7FD1B2; --mint-soft: #1E3A2F; --mint-ink: #9BE6C7;
+  --amber-soft: #3E3118; --amber-ink: #F2C46B; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #1E1715; --surface: #2A211E; --ink: #F6EDE6; --muted: #B9A9A0; --line: #3C302B;
+  --coral: #FF7A6C; --coral-soft: #4A2620; --mint: #7FD1B2; --mint-soft: #1E3A2F; --mint-ink: #9BE6C7;
+  --amber-soft: #3E3118; --amber-ink: #F2C46B; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 40px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 44px; }
+h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 900; }
+h2 { font-size: 22px; font-weight: 900; }
+h3 { font-size: 17px; font-weight: 800; }
+p { margin: 0; max-width: 68ch; }
+.sub { color: var(--muted); }
+.eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--coral); }
+section { display: grid; gap: 16px; }
+
+header { display: grid; gap: 10px; }
+.dates { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: var(--surface); border: 1px solid var(--line); }
+.pill.coral { background: var(--coral-soft); border-color: transparent; color: var(--ink); }
+.pill.mint { background: var(--mint-soft); border-color: transparent; color: var(--mint-ink); }
+.pill.amber { background: var(--amber-soft); border-color: transparent; color: var(--amber-ink); }
+
+.hero { background: var(--coral); color: #fff; border-radius: 20px; padding: 22px 24px; display: grid; gap: 10px; }
+.hero h2 { color: #fff; }
+.hero ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.hero li { max-width: 70ch; }
+.hero b { font-weight: 800; }
+
+.tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.track { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.track .head { display: flex; align-items: center; gap: 10px; }
+.badge { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-head); font-weight: 900; background: var(--coral-soft); color: var(--coral); flex: none; }
+.track .owner { font-size: 13px; color: var(--muted); }
+.track ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.track .label { font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.fr { font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--font-head); font-weight: 800; font-size: 13px; background: var(--bg); position: sticky; top: 0; }
+tr:last-child td { border-bottom: 0; }
+td.day { white-space: nowrap; font-weight: 800; font-variant-numeric: tabular-nums; }
+td.day span { display: block; font-weight: 600; color: var(--muted); font-size: 12px; }
+tr.milestone td { background: var(--mint-soft); }
+tr.milestone td.goal { color: var(--mint-ink); font-weight: 800; }
+tr.freeze td { background: var(--amber-soft); }
+tr.freeze td.goal { color: var(--amber-ink); font-weight: 800; }
+
+.tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.tier { border-radius: 16px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; border: 1px solid var(--line); background: var(--surface); }
+.tier.must { border-color: var(--coral); }
+.tier ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px 24px; }
+.rule { display: grid; gap: 4px; }
+.rule h3 { font-size: 15px; }
+code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px; background: var(--coral-soft); padding: 1px 5px; border-radius: 6px; }
+.deps { display: grid; gap: 8px; }
+.dep { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.arrow { color: var(--coral); font-weight: 900; }
+footer { color: var(--muted); font-size: 13px; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Group 51 · Mobile Application Development</div>
+    <h1>SnapSplit Sprint Plan</h1>
+    <p class="sub">Two weeks, four people, one working Android app. The plan aims at the proposal's MVP first (section 14.1): sign in, scan or upload, OCR, fix items, categorize, assign, calculate, save and view. Everything else is a bonus.</p>
+    <div class="dates">
+      <span class="pill">Mon 23 Nov – Sun 6 Dec 2026</span>
+      <span class="pill mint">Milestone 1 · Sun 29 Nov</span>
+      <span class="pill amber">Feature freeze · Thu 3 Dec</span>
+      <span class="pill coral">Submit · Sun 6 Dec</span>
+    </div>
+  </header>
+
+  <div class="hero">
+    <h2>What to finish first</h2>
+    <ol>
+      <li><b>Day 1: the shared foundation.</b> Flutter project, folder layout, data models (money in whole cents), theme, router with placeholder screens and fake in-memory data. Nobody else is blocked after this.</li>
+      <li><b>Week 1: the scan → summary flow working on a real phone</b>, using in-memory data. This is the heart of the demo.</li>
+      <li><b>Start of week 2: save to Supabase</b>, then history and editing saved receipts.</li>
+      <li><b>Last: Insights, Profile polish and extras.</b> Testing and the report run from Thursday 3 Dec.</li>
+    </ol>
+  </div>
+
+  <section>
+    <div>
+      <div class="eyebrow">Who does what</div>
+      <h2>Four tracks, each with its own folders</h2>
+    </div>
+    <p class="sub">Each track owns separate files, so four people can push every day without merge conflicts. Decide together who takes which track.</p>
+    <div class="tracks">
+      <article class="track">
+        <div class="head"><div class="badge">A</div><div><h3>Foundation &amp; Scan</h3><div class="owner">Owns <code>lib/theme</code>, <code>lib/widgets</code>, <code>lib/features/scan</code></div></div></div>
+        <div class="label">Day 1</div>
+        <ul>
+          <li>Create the Flutter project and GitHub repo, add packages</li>
+          <li>Data models, coral/cream/mint theme, Nunito font, router, bottom nav</li>
+          <li>Fake in-memory repositories so the UI runs without Supabase</li>
+        </ul>
+        <div class="label">Then</div>
+        <ul>
+          <li>Shared widgets: coral button, soft card, status chips, avatars, mascot empty state</li>
+          <li>Scan screen: Take Photo and Gallery <span class="fr">FR-02, 03</span></li>
+          <li>ML Kit OCR and LKR receipt parser, "Reading your receipt…" loader <span class="fr">FR-04, 05</span></li>
+          <li>Review screen: edit, add and delete items, total <span class="fr">FR-06</span></li>
+          <li>Splash screen and launcher icon from the logo</li>
+        </ul>
+      </article>
+
+      <article class="track">
+        <div class="head"><div class="badge">B</div><div><h3>Backend &amp; Auth</h3><div class="owner">Owns <code>supabase/</code>, <code>lib/data</code>, <code>lib/features/auth</code></div></div></div>
+        <div class="label">Day 1</div>
+        <ul>
+          <li>Create the Supabase project and share keys privately (never commit them)</li>
+          <li>Schema: categories, people, receipts, items, assignments, with Row Level Security</li>
+        </ul>
+        <div class="label">Then</div>
+        <ul>
+          <li>Login, Register and Forgot password screens <span class="fr">FR-01</span></li>
+          <li>Supabase versions of the repositories, matching the fake ones</li>
+          <li>Save a receipt with its items and shares in one transaction <span class="fr">FR-14</span></li>
+          <li>Security test: a second account cannot read your data <span class="fr">NFR-04, T10</span></li>
+          <li>Extra if time allows: Google sign-in</li>
+        </ul>
+      </article>
+
+      <article class="track">
+        <div class="head"><div class="badge">C</div><div><h3>Split engine &amp; wizard</h3><div class="owner">Owns <code>lib/domain</code>, <code>lib/features/split</code></div></div></div>
+        <div class="label">Day 1</div>
+        <ul>
+          <li>Split calculator in plain Dart: equal, exact and percent, with leftover cents going to the first person</li>
+          <li>Unit tests for it <span class="fr">T06–T08, NFR-03</span></li>
+        </ul>
+        <div class="label">Then</div>
+        <ul>
+          <li>Draft receipt state that carries data across the steps</li>
+          <li>Categories step with suggested categories <span class="fr">FR-07</span></li>
+          <li>People step: "Who's sharing this?" <span class="fr">FR-08</span></li>
+          <li>Assign step with Equal / Exact / Percent and the running total <span class="fr">FR-09, 10</span></li>
+          <li>Summary: "Who pays what", "Where the money went", Save <span class="fr">FR-11</span></li>
+        </ul>
+      </article>
+
+      <article class="track">
+        <div class="head"><div class="badge">D</div><div><h3>History, Profile &amp; QA</h3><div class="owner">Owns <code>lib/features/history</code>, <code>insights</code>, <code>profile</code>, <code>test/</code> plan</div></div></div>
+        <div class="label">Day 1</div>
+        <ul>
+          <li>Collect 15–20 real receipts (Keells, Cargills, Food City, Arpico, restaurants) and photograph them</li>
+          <li>Write the test plan sheet from proposal tables 13.1 and 13.2</li>
+        </ul>
+        <div class="label">Then</div>
+        <ul>
+          <li>Home recent receipts and History with search by store and month groups <span class="fr">FR-12</span></li>
+          <li>Receipt detail and edit a saved receipt, reusing C's steps <span class="fr">FR-13</span></li>
+          <li>Profile, My People and the Categories list</li>
+          <li>Insights: category donut and "Most shared with"</li>
+          <li>Run the OCR accuracy test, usability sessions and the questionnaire</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div class="eyebrow">Day by day</div>
+      <h2>Timeline</h2>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Day</th><th>Track A</th><th>Track B</th><th>Track C</th><th>Track D</th><th>Team goal</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="day">Mon 23<span>Day 1</span></td><td>Project, models, theme, router, fake data</td><td>Supabase project and schema</td><td>Split calculator and tests</td><td>Collect receipts, test plan</td><td class="goal">Everyone can run the app</td></tr>
+          <tr><td class="day">Tue 24<span>Day 2</span></td><td>Shared widgets, bottom nav</td><td>Auth service, Login screen</td><td>Draft receipt state</td><td>Home recent list, History screen (fake data)</td><td class="goal">Login works</td></tr>
+          <tr><td class="day">Wed 25<span>Day 3</span></td><td>Scan screen, camera and gallery</td><td>Register and Forgot screens</td><td>Categories step</td><td>History search and month groups</td><td class="goal"></td></tr>
+          <tr><td class="day">Thu 26<span>Day 4</span></td><td>ML Kit OCR</td><td>Supabase repositories</td><td>People step</td><td>Profile, My People</td><td class="goal"></td></tr>
+          <tr><td class="day">Fri 27<span>Day 5</span></td><td>Receipt parser (LKR)</td><td>Save-receipt transaction</td><td>Assign step</td><td>Categories list screen</td><td class="goal"></td></tr>
+          <tr><td class="day">Sat 28<span>Day 6</span></td><td>Review screen</td><td>Security test</td><td>Summary step</td><td>Receipt detail screen</td><td class="goal"></td></tr>
+          <tr class="milestone"><td class="day">Sun 29<span>Day 7</span></td><td colspan="4">Joining the parts: link scan → review → categories → people → assign → summary, then fix what breaks</td><td class="goal">Milestone 1: full flow on a phone</td></tr>
+          <tr><td class="day">Mon 30<span>Day 8</span></td><td>OCR fixes using D's receipts</td><td>Swap fake data for Supabase</td><td>Validation, reconcile warnings</td><td>History reads real data</td><td class="goal">Saved receipts survive restart</td></tr>
+          <tr><td class="day">Tue 1<span>Day 9</span></td><td>Splash, launcher icon, empty states</td><td>People and categories saved in database</td><td>Edit saved receipt with D</td><td>Edit saved receipt with C</td><td class="goal"></td></tr>
+          <tr><td class="day">Wed 2<span>Day 10</span></td><td>UI polish across screens</td><td>Extra: Google sign-in</td><td>Widget tests for wizard</td><td>Insights screen</td><td class="goal"></td></tr>
+          <tr class="freeze"><td class="day">Thu 3<span>Day 11</span></td><td colspan="4">Feature freeze. Bug fixes only from here. Build a release APK and install it on every member's phone.</td><td class="goal">Feature freeze</td></tr>
+          <tr><td class="day">Fri 4<span>Day 12</span></td><td colspan="4">Run test plan T01–T12, OCR accuracy test, usability sessions with 8–12 users</td><td class="goal">Evidence collected</td></tr>
+          <tr><td class="day">Sat 5<span>Day 13</span></td><td colspan="4">Fix the worst bugs, write report sections (each person writes up their own track)</td><td class="goal">Report draft</td></tr>
+          <tr><td class="day">Sun 6<span>Day 14</span></td><td colspan="4">Record the demo video, final APK, proofread report, submit</td><td class="goal">Submit</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div class="eyebrow">If time runs short</div>
+      <h2>What to keep, what to drop</h2>
+    </div>
+    <div class="tiers">
+      <div class="tier must">
+        <span class="pill coral" style="justify-self:start">Must have</span>
+        <ul>
+          <li>Sign up, log in, log out</li>
+          <li>Camera and gallery, OCR, editable review</li>
+          <li>Categories, people, equal / exact / percent split</li>
+          <li>Summary by person and category</li>
+          <li>Save to Supabase, each user sees only their own data</li>
+          <li>History list</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <span class="pill mint" style="justify-self:start">Should have</span>
+        <ul>
+          <li>History search</li>
+          <li>Edit a saved receipt</li>
+          <li>Insights donut</li>
+          <li>Manage My People</li>
+          <li>Splash, mascot empty states, app icon</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <span class="pill amber" style="justify-self:start">Drop first</span>
+        <ul>
+          <li>Google sign-in</li>
+          <li>Custom categories with emoji picker</li>
+          <li>Notifications (keep the toggle as UI only)</li>
+          <li>Offline sync (the proposal lists it as future work)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div class="eyebrow">Who waits on whom</div>
+      <h2>Dependencies</h2>
+    </div>
+    <div class="deps">
+      <div class="dep"><b>Day 1 models and fake data (A)</b><span class="arrow">→</span><span>every other screen. Agree on the models together in the first hour.</span></div>
+      <div class="dep"><b>Review screen (A)</b><span class="arrow">→</span><span>Categories step (C). C starts with hand-typed sample items until it's ready.</span></div>
+      <div class="dep"><b>Supabase repositories (B)</b><span class="arrow">→</span><span>real History data (D). D builds on fake data until Day 8.</span></div>
+      <div class="dep"><b>Wizard steps (C)</b><span class="arrow">→</span><span>edit saved receipt (D), done as a pair on Day 9.</span></div>
+      <div class="dep"><b>Real receipts (D)</b><span class="arrow">→</span><span>parser tuning (A) and the OCR accuracy test.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <div class="eyebrow">How we work</div>
+      <h2>Team rules</h2>
+    </div>
+    <div class="rules">
+      <div class="rule"><h3>One branch per feature</h3><p class="sub">Branch from <code>main</code>, open a pull request, and have one other member review it before merging.</p></div>
+      <div class="rule"><h3>15-minute check-in daily</h3><p class="sub">What I finished, what I'm doing next, what's blocking me. A WhatsApp voice note works.</p></div>
+      <div class="rule"><h3>Changing a shared model?</h3><p class="sub">Tell the group before merging. Models are the one place where everyone's code meets.</p></div>
+      <div class="rule"><h3>Test on a real Android phone</h3><p class="sub">ML Kit and the camera don't work in Chrome or on Windows. Each member keeps a phone with USB debugging on.</p></div>
+      <div class="rule"><h3>Money is whole cents</h3><p class="sub">Rs. 450.50 is stored as <code>45050</code>. Never use double for money, so totals always add up.</p></div>
+      <div class="rule"><h3>Keys stay private</h3><p class="sub">Supabase keys live in a git-ignored <code>env/dev.json</code>, shared in the group chat only.</p></div>
+    </div>
+  </section>
+
+  <footer>Built from the Group 51 SnapSplit proposal (FR-01 to FR-14, tests T01 to T12) and the Base44 design mockups.</footer>
+</div>
