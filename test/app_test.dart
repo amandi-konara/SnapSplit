@@ -80,6 +80,18 @@ void main() {
     expect(find.text('What kind of things? 🏷️'), findsOneWidget);
     expect(find.text('🍔  Food'), findsOneWidget);
     await tap('Next →');
+    // People: pick two saved people and add a new one, then untick them.
+    expect(find.text("Who's sharing this? 👥"), findsOneWidget);
+    await tap('Anuru');
+    await tap('Kamal');
+    await tester.enterText(
+      find.widgetWithText(TextField, 'Add someone new…'),
+      'Nimal',
+    );
+    await tester.tap(find.byTooltip('Add person'));
+    await tester.pumpAndSettle();
+    expect(find.text('Continue with 3 →'), findsOneWidget);
+    await tap('Nimal');
     await tap('Continue with 2 →');
     await tap('Continue to summary →');
     expect(find.text('All split up! 🎉'), findsOneWidget);
