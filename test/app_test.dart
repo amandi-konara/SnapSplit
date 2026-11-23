@@ -93,6 +93,17 @@ void main() {
     expect(find.text('Continue with 3 →'), findsOneWidget);
     await tap('Nimal');
     await tap('Continue with 2 →');
+    // Assign: equal by default, then switch to exact amounts.
+    expect(find.text('Who bought what? 👥'), findsOneWidget);
+    expect(find.text('Rs. 225'), findsNWidgets(2));
+    expect(find.text('All assigned!'), findsOneWidget);
+    expect(find.text('Everything adds up!'), findsOneWidget);
+    await tap('Exact');
+    expect(find.text('Rs. 450 still to assign.'), findsOneWidget);
+    await tester.enterText(find.byType(TextField).at(0), '300');
+    await tester.enterText(find.byType(TextField).at(1), '150');
+    await tester.pumpAndSettle();
+    expect(find.text('All assigned!'), findsOneWidget);
     await tap('Continue to summary →');
     expect(find.text('All split up! 🎉'), findsOneWidget);
     await tap('Save receipt ✓');
