@@ -1,10 +1,8 @@
 # SnapSplit
 
 Scan a receipt, check the items, assign them to people and see who owes what.
-Mobile Application Development – Group 51, University of Ruhuna.
 
 Flutter (Android) · Google ML Kit OCR · Supabase · Riverpod · go_router.
-Sprint plan: [docs/team-plan.html](docs/team-plan.html).
 
 ## Run it
 
@@ -42,19 +40,6 @@ is fine for checking layouts.
 
 Screens still showing "Being built by Track …" are placeholders to replace.
 
-## Who owns which folder
-
-Work only inside your own folders so pull requests don't clash.
-
-| Track | Folders |
-|---|---|
-| A · Foundation & Scan | `lib/theme`, `lib/widgets`, `lib/features/scan` |
-| B · Backend & Auth | `supabase/`, `lib/data` (new Supabase files), `lib/features/auth` |
-| C · Split engine & wizard | `lib/domain`, `lib/features/split` |
-| D · History, Profile & QA | `lib/features/home`, `history`, `insights`, `profile` |
-
-**Shared, ask the group before changing:** `lib/models`, `lib/data/repositories.dart`,
-`lib/data/providers.dart`, `lib/router`, `pubspec.yaml`.
 
 ## How the code fits together
 
