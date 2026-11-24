@@ -18,28 +18,7 @@ with two sample receipts), so every screen works before Supabase is connected.
 Camera and ML Kit only work on a real Android phone. Chrome (`flutter run -d chrome`)
 is fine for checking layouts.
 
-## Project status
-
-**Done:** the whole scan-to-split flow, running on fake data.
-
-- Scan screen with camera / gallery, ML Kit text reading and the receipt parser
-  (`lib/features/scan`, `lib/domain/receipt_parser.dart`)
-- Review → Categories → People → Assign → Summary, with save
-  (`lib/features/split`)
-- Split calculator and category suggester (`lib/domain`)
-- Shared widgets: avatars, category badges, status chips, step layout, empty state
-  (`lib/widgets`)
-
-**Still to do:**
-
-| Track | What's left |
-|---|---|
-| B · Backend & Auth | Supabase schema + Row Level Security, Supabase versions of the four repositories (swap them in `lib/data/providers.dart`), real Login / Register / Forgot password screens, security test (T10) |
-| D · History, Profile & QA | Home (greeting, Scan Receipt card, recent receipts), History with search, receipt page (reuse `SplitSummaryView` with `showItems: true`), edit saved receipt (call `draftReceiptProvider.notifier.startEditing(receipt)` then push `Routes.review`), Insights, Profile, My People, Categories, and the test/evaluation plan |
-| A · polish | Splash screen, launcher icon, a transparent version of the mascot, OCR tuning with real receipts |
-
 Screens still showing "Being built by Track …" are placeholders to replace.
-
 
 ## How the code fits together
 
